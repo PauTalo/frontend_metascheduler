@@ -1,0 +1,66 @@
+services:
+  server:
+    profiles: ["dev"]
+    build:
+      context: .
+      target: dev
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_METASCHEDULER_API_PROXY_TARGET: ${BACKEND_URL}
+      VITE_SSH_AUTH_PROXY_TARGET: http://ssh-auth-sidecar:4000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    depends_on:
+      - ssh-auth-sidecar
+
+  server-prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      target: final
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8080:8080
+    depends_on:
+      - ssh-auth-sidecar
+
+  ssh-auth-sidecar:
+    build:
+      context: ./ssh-auth-sidecar
+    expose:
+      - "4000"
+    environment:
+      SSH_AUTH_PORT: "4000"
+      SSH_HOST: ${SSH_HOST}
+      SSH_PORT: ${SSH_PORT:-22}
+      SSH_READY_TIMEOUT: ${SSH_READY_TIMEOUT:-10000}
+      SSH_AUTH_ALLOW_ORIGIN: ${SSH_AUTH_ALLOW_ORIGIN:-*}
+      # Abuse limits (see SECURITY.md). The browser throttle is just UX; the real
+      # per-IP limit lives here.
+      LOGIN_MAX_FAILS: ${LOGIN_MAX_FAILS:-5}
+      LOGIN_LOCK_MS: ${LOGIN_LOCK_MS:-900000}
+      GUEST_MAX_PER_MIN: ${GUEST_MAX_PER_MIN:-10}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      # URL de la API del metascheduler tal como la ve el sidecar.
+      API_URL: ${API_URL:-http://host.docker.internal:8000}
+      # Trabajos fijos del invitado (fuente de la verdad; ver ssh-auth-sidecar/.env.example).
+      GUEST_OWNER: ${GUEST_OWNER:-metascheduler}
+      GUEST_SGE_NAME: ${GUEST_SGE_NAME:-guest_demo_sge}
+      GUEST_SGE_PATH: ${GUEST_SGE_PATH:-}
+      GUEST_SGE_PWD: ${GUEST_SGE_PWD:-}
+      GUEST_SGE_QUEUE: ${GUEST_SGE_QUEUE:-0}
+      GUEST_SGE_OPTIONS: ${GUEST_SGE_OPTIONS:-}
+      GUEST_HADOOP_NAME: ${GUEST_HADOOP_NAME:-guest_demo_hadoop}
+      GUEST_HADOOP_PATH: ${GUEST_HADOOP_PATH:-}
+      GUEST_HADOOP_PWD: ${GUEST_HADOOP_PWD:-}
+      GUEST_HADOOP_QUEUE: ${GUEST_HADOOP_QUEUE:-0}
+      GUEST_HADOOP_OPTIONS: ${GUEST_HADOOP_OPTIONS:-}
+
+volumes:
+  node_modules:

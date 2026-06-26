@@ -1,0 +1,14 @@
+{
+  "name": "ssh-auth-sidecar",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Servicio de autenticación que valida usuarios del cluster vía SSH para el frontend de Metascheduler.",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "ssh2": "^1.16.0"
+  }
+}
