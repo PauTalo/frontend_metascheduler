@@ -118,16 +118,16 @@ export function Login() {
   const tabClass = (active: boolean) =>
     `flex-1 py-2 text-xs font-medium rounded-lg transition-colors ${
       active
-        ? 'bg-indigo-600 text-white'
-        : 'text-slate-400 hover:text-slate-200'
+        ? 'bg-brand-600 text-white'
+        : 'text-slate-500 hover:text-slate-800'
     }`;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-transparent px-6">
-      <div className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900/90 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur-sm">
-        <h1 className="text-xl font-bold text-slate-50">CGroups</h1>
+      <div className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/60">
+        <h1 className="text-xl font-bold text-slate-900">CGroups</h1>
 
-        <div className="flex gap-1 rounded-lg bg-slate-800 p-1">
+        <div className="flex gap-1 rounded-lg bg-slate-100 p-1">
           <button type="button" className={tabClass(mode === 'local')} onClick={() => switchMode('local')}>
             Acceso local
           </button>
@@ -138,10 +138,10 @@ export function Login() {
 
         {mode === 'local' && (
           <form onSubmit={handleLocal} className="space-y-3">
-            <p className="text-xs text-slate-400">Acceso sin SSH. El invitado entra directamente; el admin requiere contraseña.</p>
+            <p className="text-xs text-slate-500">Acceso sin SSH. El invitado entra directamente; el admin requiere contraseña.</p>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium uppercase tracking-wide text-slate-400">Perfil</label>
+              <label className="text-xs font-medium uppercase tracking-wide text-slate-600">Perfil</label>
               <div className="flex gap-2">
                 {(['admin', 'guest'] as const).map(r => (
                   <button
@@ -150,8 +150,8 @@ export function Login() {
                     onClick={() => setRole(r)}
                     className={`flex-1 py-2 rounded-lg text-sm font-medium border transition-colors ${
                       role === r
-                        ? 'bg-indigo-600 border-indigo-500 text-white'
-                        : 'border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200'
+                        ? 'bg-brand-600 border-brand-600 text-white'
+                        : 'border-slate-300 text-slate-500 hover:border-slate-400 hover:text-slate-800'
                     }`}
                   >
                     {r === 'admin' ? 'Admin' : 'Invitado'}
@@ -167,13 +167,13 @@ export function Login() {
 
             {role === 'admin' && (
               <div className="space-y-1">
-                <label className="text-xs font-medium uppercase tracking-wide text-slate-400">Contraseña</label>
+                <label className="text-xs font-medium uppercase tracking-wide text-slate-600">Contraseña</label>
                 <input
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
                   autoFocus
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
                   placeholder="Contraseña de administrador"
                 />
               </div>
@@ -184,7 +184,7 @@ export function Login() {
             <button
               type="submit"
               disabled={submitting || locked}
-              className="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+              className="w-full py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
             >
               {locked ? `Bloqueado (${lockSecs}s)` : submitting ? 'Validando…' : 'Entrar'}
             </button>
@@ -193,26 +193,26 @@ export function Login() {
 
         {mode === 'ssh' && (
           <form onSubmit={handleSsh} className="space-y-3">
-            <p className="text-xs text-slate-400">Introduce tus credenciales para conectar por SSH al cluster.</p>
+            <p className="text-xs text-slate-500">Introduce tus credenciales para conectar por SSH al cluster.</p>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium uppercase tracking-wide text-slate-400">Usuario</label>
+              <label className="text-xs font-medium uppercase tracking-wide text-slate-600">Usuario</label>
               <input
                 value={sshUser}
                 onChange={e => setSshUser(e.target.value)}
-                className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 placeholder="tu_usuario"
                 autoFocus
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-medium uppercase tracking-wide text-slate-400">Contraseña</label>
+              <label className="text-xs font-medium uppercase tracking-wide text-slate-600">Contraseña</label>
               <input
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 type="password"
-                className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
                 placeholder="tu_contraseña"
               />
             </div>
@@ -222,7 +222,7 @@ export function Login() {
             <button
               type="submit"
               disabled={submitting || locked}
-              className="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+              className="w-full py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
             >
               {locked ? `Bloqueado (${lockSecs}s)` : submitting ? 'Validando…' : 'Entrar'}
             </button>

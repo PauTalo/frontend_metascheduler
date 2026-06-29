@@ -16,7 +16,7 @@ function ProtectedLayout() {
   if (!normalizedUser) return <Navigate to="/login" replace />;
 
   return (
-    <div className="flex min-h-screen bg-transparent text-slate-100">
+    <div className="flex min-h-screen bg-transparent text-slate-800">
       <Navbar />
       <main className="ml-56 flex min-h-screen flex-1 justify-center p-8">
         <div className="w-full max-w-7xl">

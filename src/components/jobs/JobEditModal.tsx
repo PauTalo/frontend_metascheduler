@@ -217,7 +217,7 @@ export function JobEditModal({ job, queues, onClose, onUpdated }: Props) {
               <button
                 type="submit"
                 disabled={isSubmitting || !schedulerType}
-                className="flex-1 rounded-lg bg-indigo-600 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
+                className="flex-1 rounded-lg bg-brand-600 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-700 disabled:opacity-50"
               >
                 {isSubmitting ? 'Guardando…' : 'Guardar cambios'}
               </button>
@@ -230,7 +230,7 @@ export function JobEditModal({ job, queues, onClose, onUpdated }: Props) {
 }
 
 function input() {
-  return 'w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400';
+  return 'w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500';
 }
 
 function inputReadonly() {

@@ -19,10 +19,10 @@ import { normalizeUserName, useAuthStore } from '../store/authStore';
 const METRIC_STATUSES = new Set(['RUNNING', 'COMPLETED', 'ERROR']);
 
 const tooltipStyle = {
-  backgroundColor: '#020617',
-  border: '1px solid #334155',
+  backgroundColor: '#ffffff',
+  border: '1px solid #e2e8f0',
   borderRadius: '0.75rem',
-  color: '#e2e8f0',
+  color: '#0f172a',
 };
 
 export function Performance() {
@@ -108,15 +108,15 @@ export function Performance() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <h1 className="text-xl font-bold text-slate-100">Rendimiento</h1>
-          <p className="text-sm text-slate-400">
+          <h1 className="text-xl font-bold text-slate-900">Rendimiento</h1>
+          <p className="text-sm text-slate-500">
             Métricas de CPU, RAM y disco por trabajo — polling cada 10 s.
           </p>
         </div>
         <button
           onClick={refresh}
           disabled={loading}
-          className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-300 hover:bg-slate-700 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
         >
           <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           Actualizar
@@ -124,11 +124,11 @@ export function Performance() {
       </div>
 
       <div className="flex items-center gap-3">
-        <label className="text-sm text-slate-400">Trabajo:</label>
+        <label className="text-sm text-slate-500">Trabajo:</label>
         <select
           value={selectedJobId ?? ''}
           onChange={e => setSelectedJobId(e.target.value ? Number(e.target.value) : null)}
-          className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
         >
           <option value="">— Selecciona un trabajo —</option>
           {eligibleJobs.map(j => (
@@ -140,17 +140,17 @@ export function Performance() {
       </div>
 
       {error && (
-        <div className="rounded-xl border border-red-800 bg-red-950/40 p-4 text-sm text-red-300">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
           {error}
         </div>
       )}
 
       {selectedJobId === null ? (
-        <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-8 text-sm text-slate-400">
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-sm text-slate-500">
           Selecciona un trabajo para ver sus métricas de rendimiento.
         </div>
       ) : metrics.length === 0 && !loading ? (
-        <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-8 text-sm text-slate-400">
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-sm text-slate-500">
           No hay métricas disponibles para este trabajo.
         </div>
       ) : (
@@ -165,7 +165,7 @@ export function Performance() {
           <Panel title="CPU y RAM a lo largo del tiempo" description="% CPU (izq.) y MB de RAM (der.)">
             <ResponsiveContainer width="100%" height={288}>
               <LineChart data={cpuRamSeries}>
-                <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
                 <XAxis dataKey="time" stroke="#94a3b8" tick={{ fontSize: 11 }} />
                 <YAxis yAxisId="cpu" stroke="#38bdf8" />
                 <YAxis yAxisId="ram" orientation="right" stroke="#34d399" />
@@ -180,7 +180,7 @@ export function Performance() {
           <Panel title="Disco I/O a lo largo del tiempo" description="Lectura y escritura en MB">
             <ResponsiveContainer width="100%" height={288}>
               <LineChart data={diskSeries}>
-                <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" />
+                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
                 <XAxis dataKey="time" stroke="#94a3b8" tick={{ fontSize: 11 }} />
                 <YAxis stroke="#94a3b8" />
                 <Tooltip contentStyle={tooltipStyle} />
@@ -194,9 +194,9 @@ export function Performance() {
           {nodeRows.length > 0 && (
             <Panel title="Métricas por nodo" description="Promedios por IP de nodo de ejecución">
               <div className="overflow-x-auto">
-                <table className="w-full text-sm text-slate-300">
+                <table className="w-full text-sm text-slate-700">
                   <thead>
-                    <tr className="border-b border-slate-800 text-left text-xs uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-slate-200 text-left text-xs uppercase tracking-wide text-slate-500">
                       <th className="pb-3 pr-6">Nodo</th>
                       <th className="pb-3 pr-6">CPU %</th>
                       <th className="pb-3 pr-6">RAM (MB)</th>
@@ -206,7 +206,7 @@ export function Performance() {
                   </thead>
                   <tbody>
                     {nodeRows.map(row => (
-                      <tr key={row.ip} className="border-b border-slate-800/50 last:border-0">
+                      <tr key={row.ip} className="border-b border-slate-200 last:border-0">
                         <td className="py-3 pr-6 font-mono">{row.ip}</td>
                         <td className="py-3 pr-6">{row.cpu.toFixed(1)}</td>
                         <td className="py-3 pr-6">{row.ram.toFixed(0)}</td>
@@ -235,10 +235,10 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <section className="min-w-0 rounded-2xl border border-slate-800 bg-slate-950/70 p-5 shadow-lg shadow-slate-950/20">
+    <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="mb-4 space-y-1">
-        <h2 className="text-base font-semibold text-slate-100">{title}</h2>
-        <p className="text-sm text-slate-400">{description}</p>
+        <h2 className="text-base font-semibold text-slate-900">{title}</h2>
+        <p className="text-sm text-slate-500">{description}</p>
       </div>
       {children}
     </section>

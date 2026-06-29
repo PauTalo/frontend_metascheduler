@@ -71,7 +71,7 @@ function GuestJobSubmit() {
 
   return (
     <div className="mx-auto w-full max-w-lg space-y-4">
-      <h1 className="text-xl font-bold text-slate-100">Lanzar trabajo de invitado</h1>
+      <h1 className="text-xl font-bold text-slate-900">Lanzar trabajo de invitado</h1>
 
       <div className="rounded-xl border border-gray-200 bg-white p-8 space-y-4">
         <p className="text-xs text-gray-500">
@@ -115,7 +115,7 @@ function GuestJobSubmit() {
           type="button"
           onClick={onSubmit}
           disabled={submitting}
-          className="w-full py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+          className="w-full py-2 px-4 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
         >
           {submitting ? 'Enviando…' : 'Enviar trabajo'}
         </button>
@@ -179,7 +179,7 @@ function SshJobSubmit() {
 
   return (
     <div className="mx-auto w-full max-w-lg space-y-4">
-      <h1 className="text-xl font-bold text-slate-100">Lanzar nuevo trabajo</h1>
+      <h1 className="text-xl font-bold text-slate-900">Lanzar nuevo trabajo</h1>
 
       <form onSubmit={sshForm.handleSubmit(onSshSubmit)} className="rounded-xl border border-gray-200 bg-white p-8 space-y-4">
         <Field label="Nombre del trabajo" error={sshForm.formState.errors.name?.message}>
@@ -233,7 +233,7 @@ function SshJobSubmit() {
 }
 
 function input() {
-  return 'w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400';
+  return 'w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500';
 }
 
 function inputReadonly() {
@@ -255,7 +255,7 @@ function SubmitButton({ disabled, isSubmitting }: { disabled: boolean; isSubmitt
     <button
       type="submit"
       disabled={disabled}
-      className="w-full py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
+      className="w-full py-2 px-4 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium transition-colors disabled:opacity-50"
     >
       {isSubmitting ? 'Enviando…' : 'Enviar trabajo'}
     </button>

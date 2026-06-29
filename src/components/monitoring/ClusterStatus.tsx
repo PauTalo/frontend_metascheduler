@@ -93,7 +93,7 @@ export function ClusterStatus() {
               )}
               <span>{node.ip}:{node.port}</span>
               {node.id === masterId && (
-                <span className="rounded-full bg-indigo-100 px-2 py-0.5 font-medium text-indigo-700">
+                <span className="rounded-full bg-brand-100 px-2 py-0.5 font-medium text-brand-700">
                   Maestro
                 </span>
               )}

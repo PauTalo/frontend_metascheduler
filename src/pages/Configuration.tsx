@@ -48,7 +48,7 @@ export function Configuration() {
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6">
-      <h1 className="text-xl font-bold text-slate-100">Configuración</h1>
+      <h1 className="text-xl font-bold text-slate-900">Configuración</h1>
 
       {/* Políticas */}
       <section className="rounded-xl border border-gray-200 bg-white p-5 space-y-3">
@@ -60,11 +60,11 @@ export function Configuration() {
               onClick={() => handleModeChange(m.value)}
               className={`text-left rounded-lg border p-3 transition-colors ${
                 currentMode === m.value
-                  ? 'border-indigo-500 bg-indigo-50'
-                  : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
+                  ? 'border-brand-500 bg-brand-50'
+                  : 'border-gray-200 hover:border-brand-300 hover:bg-gray-50'
               }`}
             >
-              <div className="font-medium text-sm text-gray-500">{m.label}</div>
+              <div className="font-medium text-sm text-gray-800">{m.label}</div>
               <div className="text-xs text-gray-500 mt-0.5">{m.description}</div>
             </button>
           ))}
@@ -103,7 +103,7 @@ export function Configuration() {
                       <span className="flex items-center gap-2">
                         {n.ip}
                         {n.id === masterId && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">
                             Maestro
                           </span>
                         )}

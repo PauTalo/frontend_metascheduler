@@ -27,9 +27,6 @@ export function Navbar() {
 
   const isGuest = role === 'guest';
   const links = allLinks.filter(link => !isGuest || !link.hideForGuest);
-  // guest queries as `root` (backend workaround), but we show "invitado" so the
-  // real owner used in the requests isn't exposed
-  const displayName = isGuest ? 'invitado' : user;
 
   const handleLogout = () => {
     logout();
@@ -37,8 +34,8 @@ export function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 h-full w-56 bg-gray-900 text-white flex flex-col py-6 px-3 gap-1 z-10">
-      <div className="text-lg font-bold text-indigo-400 px-3 mb-6">
+    <nav className="fixed top-0 left-0 h-full w-56 bg-white border-r border-slate-200 text-slate-700 flex flex-col py-6 px-3 gap-1 z-10">
+      <div className="text-lg font-bold text-brand-600 px-3 mb-6">
         Metascheduler Frontend
       </div>
 
@@ -50,8 +47,8 @@ export function Navbar() {
           className={({ isActive }) =>
             `flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
               isActive
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                ? 'bg-brand-600 text-white'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
             }`
           }
         >
@@ -60,21 +57,29 @@ export function Navbar() {
         </NavLink>
       ))}
 
-      <div className="mt-auto border-t border-gray-700 pt-4 px-3 space-y-2">
-        {role && (
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
-            <Shield size={11} />
-            <span>{role === 'admin' ? 'Administrador' : 'Invitado'}</span>
-          </div>
-        )}
-        <div className="flex items-center justify-between text-sm text-gray-400">
+      <div className="mt-auto border-t border-slate-200 pt-4 px-3">
+        <div className="flex items-center justify-between text-sm text-slate-500">
           <span className="flex items-center gap-2">
-            <User size={14} />
-            {displayName ?? 'sin sesión'}
+            {role === 'admin' ? (
+              <>
+                <Shield size={14} />
+                Administrador
+              </>
+            ) : role === 'guest' ? (
+              <>
+                <Shield size={14} />
+                Invitado
+              </>
+            ) : (
+              <>
+                <User size={14} />
+                {user ?? 'sin sesión'}
+              </>
+            )}
           </span>
           {user && (
             <button onClick={handleLogout} title="Cerrar sesión">
-              <LogOut size={14} className="hover:text-red-400" />
+              <LogOut size={14} className="hover:text-red-500" />
             </button>
           )}
         </div>

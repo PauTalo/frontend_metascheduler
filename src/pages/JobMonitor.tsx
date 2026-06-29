@@ -23,10 +23,10 @@ function formatDuration(seconds: number): string {
 }
 
 const statusColors: Record<JobStatus, string> = {
-  TO_BE_QUEUED: 'bg-gray-100 text-gray-600',
-  QUEUED: 'bg-blue-100 text-blue-700',
+  TO_BE_QUEUED: 'bg-yellow-100 text-yellow-700',
+  QUEUED: 'bg-yellow-100 text-yellow-700',
   RUNNING: 'bg-green-100 text-green-700',
-  COMPLETED: 'bg-indigo-100 text-indigo-700',
+  COMPLETED: 'bg-blue-100 text-blue-700',
   ERROR: 'bg-red-100 text-red-700',
 };
 
@@ -75,7 +75,7 @@ export function JobMonitor() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-slate-100">Monitor de trabajos</h1>
+        <h1 className="text-xl font-bold text-slate-900">Monitor de trabajos</h1>
         {loading && <RefreshCw size={16} className="animate-spin text-gray-400" />}
       </div>
 
@@ -183,7 +183,7 @@ export function JobMonitor() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => setEditingJob(job)}
-                          className="text-gray-400 hover:text-indigo-500 transition-colors"
+                          className="text-gray-400 hover:text-brand-600 transition-colors"
                           title="Editar"
                         >
                           <Pencil size={14} />
